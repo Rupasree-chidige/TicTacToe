@@ -69,16 +69,16 @@ public class Game {
         board.getBoard().get(row).get(col).setPlayer(turnPlayer);
         this.moves.add(move);
 
-        Player player = gameWinningStrategy.decideWinner(board);
-        if (player != null){
-            gameStatus = GameStatus.ENDED;
-            winner = player;
+        boolean iswinner = gameWinningStrategy.decideWinner(board, turnPlayer, move.getCell());
+        if (iswinner){
+            this.gameStatus = GameStatus.ENDED;
+            this.winner = turnPlayer;
         }
         players.offerLast(turnPlayer);
     }
 
     public Player getWinner() {
-        return null;
+        return this.winner;
     }
     public static GameBuilder getBuilder() {
         return new GameBuilder();

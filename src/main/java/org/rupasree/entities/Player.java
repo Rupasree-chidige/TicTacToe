@@ -4,7 +4,7 @@ import org.rupasree.exceptions.InvalidMoveException;
 
 import java.util.Scanner;
 
-public abstract class Player {
+public class Player {
     private String name;
     private char Symbol;
     private PlayerType playerType;

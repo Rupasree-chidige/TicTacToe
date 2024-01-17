@@ -20,8 +20,8 @@ public class Main {
 
         Deque<Player> players = new ArrayDeque<>();
         int noOfPlayers = dimension - 1;
-        if(isBotString.equals('y')){
-            noOfPlayers= dimension-2;
+        if(isBotString.equals("y")){
+            noOfPlayers= dimension -2;
         }
         for (int i=0; i< noOfPlayers; i++){
             System.out.println("What is the name of the player");
@@ -32,7 +32,7 @@ public class Main {
             Player player = new Player(name, symbol.charAt(0), PlayerType.HUMAN);
             players.add(player);
         }
-        if(isBotString.equals('y')){
+        if(isBotString.equals("y")){
             System.out.println("What is the name of the Bot");
             String name = scanner.next();
 
@@ -49,7 +49,10 @@ public class Main {
             System.out.println("This is the current board:");
             gameController.displayBoard(game);
             gameController.executeNextMove(game);
-
+        }
+        System.out.println("Game has ended. Result was: ");
+        if (!game.getGameStatus().equals(GameStatus.DRAW)) {
+            System.out.println("Winner is: ." + gameController.getWinner(game).getName());
         }
     }
 }
