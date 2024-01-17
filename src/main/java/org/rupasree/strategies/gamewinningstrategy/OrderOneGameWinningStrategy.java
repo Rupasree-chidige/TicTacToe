@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class OrderOneGameWinningStrategy implements GameWinningStrategy{
-    private List<HashMap<Character, Integer>> rowSymbolCounts = new ArrayList<>();
-    private List<HashMap<Character, Integer>> colSymbolCounts = new ArrayList<>();
-    private HashMap<Character, Integer> topLeftDiagSymbolCounts = new HashMap<>();
-    private HashMap<Character, Integer> topRightDiagSymbolCounts = new HashMap<>();
+    private final List<HashMap<Character, Integer>> rowSymbolCounts = new ArrayList<>();
+    private final List<HashMap<Character, Integer>> colSymbolCounts = new ArrayList<>();
+    private final HashMap<Character, Integer> topLeftDiagSymbolCounts = new HashMap<>();
+    private final HashMap<Character, Integer> topRightDiagSymbolCounts = new HashMap<>();
     public boolean isCellOnTopLeftDiag(int row, int col) {
         return row == col;
     }
@@ -45,9 +45,7 @@ public class OrderOneGameWinningStrategy implements GameWinningStrategy{
         }
         if (isCellOnTopRightDiag(row, col, dimension) && topRightDiagSymbolCounts.get(symbol) == dimension) return true;
 
-        if (isCellOnTopLeftDiag(row, col) && topLeftDiagSymbolCounts.get(symbol) == dimension) return true;
-
-        return false;
+        return isCellOnTopLeftDiag(row, col) && topLeftDiagSymbolCounts.get(symbol) == dimension;
     }
     public OrderOneGameWinningStrategy(int dimension) {
         for (int i = 0; i < dimension; ++i) {

@@ -4,8 +4,8 @@ import org.rupasree.factories.BotPlayingStrategyFactory;
 import org.rupasree.strategies.botstrategies.BotPlayingStrategy;
 
 public class Bot extends Player{
-    private BotDifficultyLevel botDifficultyLevel;
-    private BotPlayingStrategy botPlayingStrategy;
+    private final BotDifficultyLevel botDifficultyLevel;
+    private final BotPlayingStrategy botPlayingStrategy;
     public Bot(String name, char symbol, PlayerType playerType, BotDifficultyLevel botDifficultyLevel) {
         super(name, symbol, playerType);
         this.botDifficultyLevel = botDifficultyLevel;

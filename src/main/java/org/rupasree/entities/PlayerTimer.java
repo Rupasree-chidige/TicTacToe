@@ -4,7 +4,7 @@ package org.rupasree.entities;
 import java.util.TimerTask;
 
 public class PlayerTimer extends TimerTask {
-    private Player turnPlayer;
+    private final Player turnPlayer;
     private boolean moveCompleted;
 
     public PlayerTimer(Player turnPlayer, boolean moveCompleted) {

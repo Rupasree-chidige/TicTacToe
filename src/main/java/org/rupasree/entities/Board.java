@@ -15,7 +15,7 @@ public class Board {
         for(int i=0; i <board.size(); i++){
             for(int j=0; j <board.size(); j++){
                 if(board.get(i).get(j).getCellType().equals(CellType.EMPTY)){
-                    System.out.printf("| | ");
+                    System.out.print("| | ");
                 }else{
                     System.out.printf("| "+board.get(i).get(j).getPlayer().getSymbol()+" | ");
                 }

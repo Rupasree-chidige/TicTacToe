@@ -14,7 +14,7 @@ public class BotPlayingStrategyFactory {
             case DIFFICULT:
                 return new BotDifficultPlayingStrategy();
             default:
-                throw new IllegalArgumentException(botDifficultyLevel.toString() + " is not a valid DifficultyLevel");
+                throw new IllegalArgumentException(botDifficultyLevel + " is not a valid DifficultyLevel");
         }
     }
 }
