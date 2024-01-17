@@ -1,9 +1,13 @@
 package org.rupasree.entities;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.rupasree.exceptions.InvalidMoveException;
 
 import java.util.Scanner;
 
+@Getter
+@Setter
 public class Player {
     private String name;
     private char Symbol;
@@ -15,29 +19,6 @@ public class Player {
         this.playerType = playerType;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public char getSymbol() {
-        return Symbol;
-    }
-
-    public void setSymbol(char symbol) {
-        Symbol = symbol;
-    }
-
-    public PlayerType getPlayerType() {
-        return playerType;
-    }
-
-    public void setPlayerType(PlayerType playerType) {
-        this.playerType = playerType;
-    }
 
     public Move makeMove(Board board) throws InvalidMoveException {
         Move move;

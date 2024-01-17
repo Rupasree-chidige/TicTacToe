@@ -1,5 +1,7 @@
 package org.rupasree.entities;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.rupasree.exceptions.InvalidGameConstructionParametersException;
 import org.rupasree.exceptions.InvalidMoveException;
 import org.rupasree.strategies.gamewinningstrategy.GameWinningStrategy;
@@ -7,89 +9,60 @@ import org.rupasree.strategies.gamewinningstrategy.OrderOneGameWinningStrategy;
 
 import java.util.*;
 
+@Setter
+@Getter
 public class Game {
     private Board board;
     private Deque<Player> players;
     private GameStatus gameStatus;
     private GameWinningStrategy gameWinningStrategy;
     private List<Move> moves;
-
+    private Timer timer;
     private Player winner;
-    public Board getBoard() {
-        return board;
-    }
 
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    public Deque<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(Deque<Player> players) {
-        this.players = players;
-    }
-
-    public GameStatus getGameStatus() {
-        return gameStatus;
-    }
-
-    public void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
-    }
-
-    public GameWinningStrategy getGameWinningStrategy() {
-        return gameWinningStrategy;
-    }
-
-    public void setGameWinningStrategy(GameWinningStrategy gameWinningStrategy) {
-        this.gameWinningStrategy = gameWinningStrategy;
-    }
     public void displayBoard() {
         this.board.displayBoard();
     }
-
-
-    public void makeNextMove()  {
+    public void makeNextMove() {
         Player turnPlayer = players.pollFirst();
         System.out.println("It is " + turnPlayer.getName() + "'s turn.");
-        Move move;
-        try {
-            move = turnPlayer.makeMove(board);
-        }
-        catch (InvalidMoveException e){
-            System.out.println(e.getMessage());
-            players.offerFirst(turnPlayer);
-            return;
-        }
-        int row = move.getCell().getRow();
-        int col = move.getCell().getCol();
-        board.getBoard().get(row).get(col).setCellType(CellType.FILLED);
-        board.getBoard().get(row).get(col).setPlayer(turnPlayer);
-        this.moves.add(move);
 
-        boolean iswinner = gameWinningStrategy.decideWinner(board, turnPlayer, move.getCell());
-        if (iswinner){
-            this.gameStatus = GameStatus.ENDED;
-            this.winner = turnPlayer;
+        try {
+            Move move = turnPlayer.makeMove(board);
+            processMove(turnPlayer, move);
+        } catch (InvalidMoveException e) {
+            handleInvalidMove(turnPlayer, e.getMessage());
+            return;
         }
         players.offerLast(turnPlayer);
     }
 
-    public Player getWinner() {
-        return this.winner;
+    private void processMove(Player turnPlayer, Move move) {
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+
+        board.getBoard().get(row).get(col).setCellType(CellType.FILLED);
+        board.getBoard().get(row).get(col).setPlayer(turnPlayer);
+
+        moves.add(move);
+
+        if (gameWinningStrategy.decideWinner(board, turnPlayer, move.getCell())) {
+            endGame(turnPlayer);
+        }
     }
+
+    private void handleInvalidMove(Player turnPlayer, String errorMessage) {
+        System.out.println(errorMessage);
+        players.offerFirst(turnPlayer);
+    }
+
+    private void endGame(Player turnPlayer) {
+        gameStatus = GameStatus.ENDED;
+        winner = turnPlayer;
+    }
+
     public static GameBuilder getBuilder() {
         return new GameBuilder();
-    }
-
-    public List<Move> getMoves() {
-        return moves;
-    }
-
-    public void setMoves(List<Move> moves) {
-        this.moves = moves;
     }
 
     public static class  GameBuilder{

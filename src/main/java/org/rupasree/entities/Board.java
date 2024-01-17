@@ -1,8 +1,13 @@
 package org.rupasree.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Setter
+@Getter
 public class Board {
     private List<List<Cell>> board;
 
@@ -28,13 +33,5 @@ public class Board {
                 this.board.get(i).add(new Cell(i,j));
             }
         }
-    }
-
-    public List<List<Cell>> getBoard() {
-        return board;
-    }
-
-    public void setBoard(List<List<Cell>> board) {
-        this.board = board;
     }
 }

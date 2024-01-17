@@ -50,9 +50,10 @@ public class Main {
             gameController.displayBoard(game);
             gameController.executeNextMove(game);
         }
+        gameController.displayBoard(game);
         System.out.println("Game has ended. Result was: ");
         if (!game.getGameStatus().equals(GameStatus.DRAW)) {
-            System.out.println("Winner is: ." + gameController.getWinner(game).getName());
+            System.out.println("Winner is: " + gameController.getWinner(game).getName());
         }
     }
 }
